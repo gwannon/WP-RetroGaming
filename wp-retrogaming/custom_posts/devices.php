@@ -25,7 +25,7 @@ function wp_retrogaming_device_create_post_type() {
 		'menu_position' => 7,
 		'query_var' 	  => true,
 		'supports'      => array( 'title', 'editor', 'thumbnail'/*, 'page-attributes'*/ ),
-		'rewrite'	      => array('slug' => 'device', 'with_front' => false),
+		'rewrite'	      => array( 'slug' => 'device', 'with_front' => false),
 		'query_var'	    => true,
 		'has_archive' 	=> false,
 		'hierarchical'	=> true,
@@ -55,13 +55,11 @@ function wp_retrogaming_device_platform_create_type() {
 		'public'		        => true,
 		'query_var'		      => true,
 		'show_in_nav_menus' => true,
-		'has_archive'       => false,
-    'rewrite'           => array(
-      'feeds' => true
-    ),
-    'publicly_queryable' => false
+		'has_archive'       => true,
+    'rewrite'           =>  array( 'slug' => 'platform', 'with_front' => false),
+    'publicly_queryable' => true
 	);
-	register_taxonomy( 'platform', 'device', $args );
+	register_taxonomy( 'platform', array('device', 'accessory'), $args );
 }
 
 //Brand -------------------------
@@ -86,13 +84,11 @@ function wp_retrogaming_device_brand_create_type() {
 		'public'		        => true,
 		'query_var'		      => true,
 		'show_in_nav_menus' => true,
-		'has_archive'       => false,
-    'rewrite'           => array(
-      'feeds' => true
-    ),
-    'publicly_queryable' => false
+		'has_archive'       => true,
+    'rewrite'           =>  array( 'slug' => 'brand', 'with_front' => false),
+    'publicly_queryable' => true
 	);
-	register_taxonomy( 'brand', 'device', $args );
+	register_taxonomy( 'brand', array('device', 'accessory'), $args );
 }
 
 //CAMPOS personalizados ---------------------------
@@ -117,13 +113,13 @@ function get_wp_retrogaming_device_custom_fields () {
 }
 
 function wp_retrogaming_device_add_custom_fields() {
-    add_meta_box(
-        'box_devices', // $id
-        __('Device data', 'wp-retrogaming'), // $title 
-        'wp_retrogaming_show_custom_fields', // $callback
-        'device', // $page
-        'normal', // $context
-        'high'); // $priority
+  add_meta_box(
+    'box_devices', // $id
+    __('Device data', 'wp-retrogaming'), // $title 
+    'wp_retrogaming_show_custom_fields', // $callback
+    'device', // $page
+    'normal', // $context
+    'high'); // $priority
 }
 add_action('add_meta_boxes', 'wp_retrogaming_device_add_custom_fields');
 add_action('save_post', 'wp_retrogaming_save_custom_fields' );

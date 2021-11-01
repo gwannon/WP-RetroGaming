@@ -14,10 +14,10 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-//flush_rewrite_rules();
+flush_rewrite_rules(true);
 
 // Includes --------------------------------
 // -----------------------------------------
-
+include_once(dirname(__FILE__)."/custom_posts/accessories.php");
 include_once(dirname(__FILE__)."/custom_posts/devices.php");
 include_once(dirname(__FILE__)."/lib/custom_posts.php");

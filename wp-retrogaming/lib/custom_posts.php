@@ -1,8 +1,14 @@
 <?php
+
+function get_wp_retrogaming_custom_fields ($type) {
+  if($type == 'accessory') return get_wp_retrogaming_accessory_custom_fields ();
+  else if($type == 'device') return get_wp_retrogaming_device_custom_fields ();
+}
+
 function wp_retrogaming_show_custom_fields() { //Show box
   global $post;
   $type = get_post_type($post->ID);
-	$fields = get_wp_retrogaming_device_custom_fields (); ?>
+	$fields = get_wp_retrogaming_custom_fields ($type); ?>
 		<div>
 		<?php foreach ($fields as $field => $datos) { ?>
 			<?php if($datos['tipo'] != 'repeater') { ?><div style="width: calc(50% - 10px); float: left; padding: 5px;"><?php } else { ?><div style="width: calc(100% - 10px); float: left; padding: 5px;"><?php } ?>
@@ -91,7 +97,7 @@ function wp_retrogaming_show_custom_fields() { //Show box
 function wp_retrogaming_save_custom_fields( $post_id ) { //Save changes
 	global $wpdb;
   $type = get_post_type($post_id);
-  $fields = get_wp_retrogaming_device_custom_fields();
+  $fields = get_wp_retrogaming_custom_fields ($type);
 	foreach ($fields as $field => $datos) {
 		$label = '_'.$type.'_'.$field;
     if ($datos['tipo'] == 'repeater') { //Limpiamos vacios
