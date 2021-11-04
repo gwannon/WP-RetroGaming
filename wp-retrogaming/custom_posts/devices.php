@@ -59,7 +59,7 @@ function wp_retrogaming_device_platform_create_type() {
     'rewrite'           =>  array( 'slug' => 'platform', 'with_front' => false),
     'publicly_queryable' => true
 	);
-	register_taxonomy( 'platform', array('device', 'accessory'), $args );
+  register_taxonomy( 'platform', array('device'/*, 'accessory'*/), $args );
 }
 
 //Brand -------------------------
@@ -108,7 +108,12 @@ function get_wp_retrogaming_device_custom_fields () {
 			"ntsc" =>  __('NTSC', 'wp-retrogaming'), 
 			"pal" => __('PAL', 'wp-retrogaming')
 		)),
+    'mods' => array ('titulo' => __( "Modifications", 'wp-retrogaming' ), 'tipo' => 'repeater', "fields" => array (
+      'title' => array ('titulo' => __( "Description", 'wp-retrogaming' ), 'tipo' => 'text'),
+      'date' => array ('titulo' => __( "Date", 'wp-retrogaming' ), 'tipo' => 'text')
+    ))
 	);
+
 	return $fields;
 }
 

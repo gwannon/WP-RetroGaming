@@ -36,9 +36,19 @@ function wp_retrogaming_accessory_create_post_type() {
 //CAMPOS personalizados ---------------------------
 // ------------------------------------------------
 function get_wp_retrogaming_accessory_custom_fields () {
+  $devices = array();
+  foreach( get_posts(array('post_type' => 'device', 'numberposts' => -1)) as $device) $devices[$device->post_name] = $device->post_title;
+
 	$fields = array(
     'model' => array ('titulo' => __( 'Model', 'wp-retrogaming' ), 'tipo' => 'text'),
-		'serial_number' => array ('titulo' => __( 'Serial Number', 'wp-retrogaming' ), 'tipo' => 'text'),
+		'model_number' => array ('titulo' => __( 'Model Number', 'wp-retrogaming' ), 'tipo' => 'text'),
+    'packaging' => array ('titulo' => __( 'Packaging', 'wp-retrogaming' ), 'tipo' => 'checkbox', "valores" => array(
+			"box" =>  __('Box', 'wp-retrogaming'), 
+			"insert" => __('Insert', 'wp-retrogaming'), 
+			"manual" => __('Manual', 'wp-retrogaming'), 
+			"warranty" => __('Warranty', 'wp-retrogaming')
+		)),
+    'device' => array ('titulo' => __( 'Device', 'wp-retrogaming' ), 'tipo' => 'select', "valores" => $devices),
 	);
 	return $fields;
 }

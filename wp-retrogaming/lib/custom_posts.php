@@ -115,3 +115,15 @@ function wp_retrogaming_save_custom_fields( $post_id ) { //Save changes
     else if (!isset($_POST[$label]) && $datos['tipo'] == 'multiple') delete_post_meta( $post_id, $label);
 	}
 }
+
+function array_remove_empty($haystack) {
+  foreach ($haystack as $key => $value) {
+    if (is_array($value)) {
+        $haystack[$key] = array_remove_empty($haystack[$key]);
+    }
+    if (empty($haystack[$key])) {
+        unset($haystack[$key]);
+    }
+  }
+  return $haystack;
+}
